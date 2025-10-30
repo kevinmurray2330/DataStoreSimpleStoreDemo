@@ -39,25 +39,24 @@ class MainActivity : ComponentActivity() {
         Log.d("MainActivity", fileContents)
     }
     private fun writeToInternalFile() {
-        val outputStream: FileOutputStream = openFileOutput("fav_haiku", Context.MODE_PRIVATE)
+        val outputStream: FileOutputStream = openFileOutput("edufilename", Context.MODE_PRIVATE)
         val writer = PrintWriter(outputStream)
 
         // Write three lines
-        writer.println("This world of dew")
-        writer.println("is a world of dew,")
+        writer.println("This world of fun")
         writer.println("and yet, and yet.")
 
         writer.close()
     }
 
     private fun readFromInternalFile(): String {
-        val inputStream = openFileInput("fav_haiku")
+        val inputStream = openFileInput("edufilename")
         val reader = inputStream.bufferedReader()
         val stringBuilder = StringBuilder()
 
         // Append each line and newline character to stringBuilder
         reader.forEachLine {
-            stringBuilder.append(it).append("\n BCS 371 \n").append(System.lineSeparator())
+            stringBuilder.append(it).append("\n CSC 371 \n").append(System.lineSeparator())
         }
 
         return stringBuilder.toString()
@@ -74,7 +73,7 @@ fun DataStoreDemo(modifier: Modifier) {
                 "${appPrefs.value.highScore}, ${appPrefs.value.darkMode}")
         Button(onClick = {
             coroutineScope.launch {
-                store.saveUsername("flygirl")
+                store.saveUsername("somevaluehere")
             }
 
         }) {
