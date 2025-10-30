@@ -75,8 +75,10 @@ fun DataStoreDemo(modifier: Modifier) {
     val coroutineScope = rememberCoroutineScope()
     var username by remember { mutableStateOf("") }
     Column (modifier = Modifier.padding(50.dp)) {
-        Text("Values = ${appPrefs.value.userName}, " +
-                "${appPrefs.value.highScore}, ${appPrefs.value.darkMode}")
+        Text("Stored Values:")
+        Text("Username: ${appPrefs.value.userName}")
+        Text("High Score: ${appPrefs.value.highScore}")
+        Text("Dark Mode: ${appPrefs.value.darkMode}")
         OutlinedTextField(
             value = username,
             onValueChange = { username = it },
