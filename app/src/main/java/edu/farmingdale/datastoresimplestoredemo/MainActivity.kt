@@ -22,6 +22,11 @@ import edu.farmingdale.datastoresimplestoredemo.data.AppPreferences
 import edu.farmingdale.datastoresimplestoredemo.ui.theme.DataStoreSimpleStoreDemoTheme
 import kotlinx.coroutines.launch
 import java.io.FileOutputStream
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,12 +73,18 @@ fun DataStoreDemo(modifier: Modifier) {
     val store = AppStorage(LocalContext.current)
     val appPrefs = store.appPreferenceFlow.collectAsState(AppPreferences())
     val coroutineScope = rememberCoroutineScope()
+    var username by remember { mutableStateOf("") }
     Column (modifier = Modifier.padding(50.dp)) {
         Text("Values = ${appPrefs.value.userName}, " +
                 "${appPrefs.value.highScore}, ${appPrefs.value.darkMode}")
+        OutlinedTextField(
+            value = username,
+            onValueChange = { username = it },
+            label = { Text("Username") }
+        )
         Button(onClick = {
             coroutineScope.launch {
-                store.saveUsername("somevaluehere")
+                store.saveUsername(username)
                 store.saveHighScore(1000000)
                 store.saveDarkMode(true)
             }
